@@ -1,0 +1,73 @@
+scripts/remux_video_audio.swift:8:17: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 6 | let temp=root.appendingPathComponent("video/Booth编码原理与硬件实现_双声道.mp4")
+ 7 | let va=AVURLAsset(url:video), aa=AVURLAsset(url:audio)
+ 8 | guard let vt=va.tracks(withMediaType:.video).first, let at=aa.tracks(withMediaType:.audio).first else { fatalError("Input tracks missing") }
+   |                 `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 9 | let c=AVMutableComposition()
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+
+scripts/remux_video_audio.swift:8:63: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 6 | let temp=root.appendingPathComponent("video/Booth编码原理与硬件实现_双声道.mp4")
+ 7 | let va=AVURLAsset(url:video), aa=AVURLAsset(url:audio)
+ 8 | guard let vt=va.tracks(withMediaType:.video).first, let at=aa.tracks(withMediaType:.audio).first else { fatalError("Input tracks missing") }
+   |                                                               `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 9 | let c=AVMutableComposition()
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+
+scripts/remux_video_audio.swift:12:59: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+11 |       let a=c.addMutableTrack(withMediaType:.audio,preferredTrackID:kCMPersistentTrackID_Invalid) else { fatalError("Output tracks unavailable") }
+12 | try v.insertTimeRange(CMTimeRange(start:.zero,duration:va.duration),of:vt,at:.zero)
+   |                                                           `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+13 | try a.insertTimeRange(CMTimeRange(start:.zero,duration:aa.duration),of:at,at:.zero)
+14 | try? FileManager.default.removeItem(at:temp)
+
+scripts/remux_video_audio.swift:13:59: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+11 |       let a=c.addMutableTrack(withMediaType:.audio,preferredTrackID:kCMPersistentTrackID_Invalid) else { fatalError("Output tracks unavailable") }
+12 | try v.insertTimeRange(CMTimeRange(start:.zero,duration:va.duration),of:vt,at:.zero)
+13 | try a.insertTimeRange(CMTimeRange(start:.zero,duration:aa.duration),of:at,at:.zero)
+   |                                                           `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+
+scripts/remux_video_audio.swift:16:5: warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+   |     `- warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+
+scripts/remux_video_audio.swift:16:25: warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+   |                         `- warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+
+scripts/remux_video_audio.swift:17:45: warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+   |                                             `- warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+19 | print(temp.path)
+
+scripts/remux_video_audio.swift:18:8: warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+   |        `- warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+19 | print(temp.path)
+20 | 
+
+scripts/remux_video_audio.swift:18:82: warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+   |                                                                                  `- warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+19 | print(temp.path)
+20 | 
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>

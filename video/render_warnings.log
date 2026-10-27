@@ -1,0 +1,210 @@
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:32:7: warning: 'expectsMediaDataInRealTime' was deprecated in macOS 27.0: Use the input receiver's appendImmediately(...) method instead [#DeprecatedDeclaration]
+ 30 |     AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: 1_500_000]
+ 31 | ])
+ 32 | input.expectsMediaDataInRealTime = false
+    |       `- warning: 'expectsMediaDataInRealTime' was deprecated in macOS 27.0: Use the input receiver's appendImmediately(...) method instead [#DeprecatedDeclaration]
+ 33 | let attrs: [String: Any] = [
+ 34 |     kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB,
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:40:15: warning: 'AVAssetWriterInputPixelBufferAdaptor' was deprecated in macOS 27.0: Use AVAssetWriter.inputPixelBufferReceiver(for:pixelBufferAttributes:) instead [#DeprecatedDeclaration]
+ 38 |     kCVPixelBufferCGBitmapContextCompatibilityKey as String: true
+ 39 | ]
+ 40 | let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: attrs)
+    |               `- warning: 'AVAssetWriterInputPixelBufferAdaptor' was deprecated in macOS 27.0: Use AVAssetWriter.inputPixelBufferReceiver(for:pixelBufferAttributes:) instead [#DeprecatedDeclaration]
+ 41 | writer.add(input)
+ 42 | if !writer.startWriting() { fatalError("Writer start failed: \(String(describing: writer.error))") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:41:8: warning: 'add' was deprecated in macOS 27.0: Use the appropriate AVAssetWriter.inputReceiver(for:...) overload for your input and optional adaptor instead [#DeprecatedDeclaration]
+ 39 | ]
+ 40 | let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: attrs)
+ 41 | writer.add(input)
+    |        `- warning: 'add' was deprecated in macOS 27.0: Use the appropriate AVAssetWriter.inputReceiver(for:...) overload for your input and optional adaptor instead [#DeprecatedDeclaration]
+ 42 | if !writer.startWriting() { fatalError("Writer start failed: \(String(describing: writer.error))") }
+ 43 | writer.startSession(atSourceTime: .zero)
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:42:12: warning: 'startWriting()' was deprecated in macOS 27.0: Use start() instead [#DeprecatedDeclaration]
+ 40 | let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: attrs)
+ 41 | writer.add(input)
+ 42 | if !writer.startWriting() { fatalError("Writer start failed: \(String(describing: writer.error))") }
+    |            `- warning: 'startWriting()' was deprecated in macOS 27.0: Use start() instead [#DeprecatedDeclaration]
+ 43 | writer.startSession(atSourceTime: .zero)
+ 44 | func pixel(_ url: URL) -> CVPixelBuffer {
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:62:18: warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 60 | var seconds = 0.0
+ 61 | for (url, duration) in frames {
+ 62 |     while !input.isReadyForMoreMediaData { Thread.sleep(forTimeInterval: 0.01) }
+    |                  `- warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 63 |     let t = CMTime(seconds: seconds, preferredTimescale: 600)
+ 64 |     if !adaptor.append(pixel(url), withPresentationTime: t) { fatalError("append failed: \(String(describing: writer.error))") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:67:14: warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 65 |     seconds += duration
+ 66 | }
+ 67 | while !input.isReadyForMoreMediaData { Thread.sleep(forTimeInterval: 0.01) }
+    |              `- warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 68 | _ = adaptor.append(pixel(frames.last!.0), withPresentationTime: CMTime(seconds: seconds, preferredTimescale: 600))
+ 69 | while !input.isReadyForMoreMediaData { Thread.sleep(forTimeInterval: 0.01) }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:69:14: warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 67 | while !input.isReadyForMoreMediaData { Thread.sleep(forTimeInterval: 0.01) }
+ 68 | _ = adaptor.append(pixel(frames.last!.0), withPresentationTime: CMTime(seconds: seconds, preferredTimescale: 600))
+ 69 | while !input.isReadyForMoreMediaData { Thread.sleep(forTimeInterval: 0.01) }
+    |              `- warning: 'isReadyForMoreMediaData' was deprecated in macOS 27.0: Use the input receiver's async append(...) method instead [#DeprecatedDeclaration]
+ 70 | _ = adaptor.append(pixel(frames.last!.0), withPresentationTime: CMTime(seconds: seconds + 1.0 / 24.0, preferredTimescale: 600))
+ 71 | input.markAsFinished()
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:80:33: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 78 | let composition = AVMutableComposition()
+ 79 | let videoAsset = AVURLAsset(url: tempVideo)
+ 80 | guard let srcVideo = videoAsset.tracks(withMediaType: .video).first,
+    |                                 `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 81 |       let dstVideo = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
+ 82 |       let dstAudio = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else { fatalError("Cannot create composition tracks") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:83:77: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 81 |       let dstVideo = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
+ 82 |       let dstAudio = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else { fatalError("Cannot create composition tracks") }
+ 83 | try dstVideo.insertTimeRange(CMTimeRange(start: .zero, duration: videoAsset.duration), of: srcVideo, at: .zero)
+    |                                                                             `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 84 | var cursor = CMTime.zero
+ 85 | for i in 1...frames.count {
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:88:29: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 86 |     let url = dir.appendingPathComponent(String(format: "audio/%02d.aiff", i))
+ 87 |     let asset = AVURLAsset(url: url)
+ 88 |     guard let track = asset.tracks(withMediaType: .audio).first else { fatalError("No audio track at \(url.path)") }
+    |                             `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 89 |     try dstAudio.insertTimeRange(CMTimeRange(start: .zero, duration: asset.duration), of: track, at: cursor)
+ 90 |     cursor = CMTimeAdd(cursor, asset.duration)
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:89:76: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 87 |     let asset = AVURLAsset(url: url)
+ 88 |     guard let track = asset.tracks(withMediaType: .audio).first else { fatalError("No audio track at \(url.path)") }
+ 89 |     try dstAudio.insertTimeRange(CMTimeRange(start: .zero, duration: asset.duration), of: track, at: cursor)
+    |                                                                            `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 90 |     cursor = CMTimeAdd(cursor, asset.duration)
+ 91 | }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:90:38: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 88 |     guard let track = asset.tracks(withMediaType: .audio).first else { fatalError("No audio track at \(url.path)") }
+ 89 |     try dstAudio.insertTimeRange(CMTimeRange(start: .zero, duration: asset.duration), of: track, at: cursor)
+ 90 |     cursor = CMTimeAdd(cursor, asset.duration)
+    |                                      `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+ 91 | }
+ 92 | try? FileManager.default.removeItem(at: output)
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:94:10: warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+ 92 | try? FileManager.default.removeItem(at: output)
+ 93 | guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else { fatalError("No exporter") }
+ 94 | exporter.outputURL = output
+    |          `- warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+ 95 | exporter.outputFileType = .mp4
+ 96 | let exportGroup = DispatchGroup(); exportGroup.enter()
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:95:10: warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+ 93 | guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else { fatalError("No exporter") }
+ 94 | exporter.outputURL = output
+ 95 | exporter.outputFileType = .mp4
+    |          `- warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+ 96 | let exportGroup = DispatchGroup(); exportGroup.enter()
+ 97 | exporter.exportAsynchronously { exportGroup.leave() }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:97:10: warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+ 95 | exporter.outputFileType = .mp4
+ 96 | let exportGroup = DispatchGroup(); exportGroup.enter()
+ 97 | exporter.exportAsynchronously { exportGroup.leave() }
+    |          `- warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+ 98 | exportGroup.wait()
+ 99 | if exporter.status != .completed { fatalError("Export failed: \(String(describing: exporter.error))") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:99:13: warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+ 97 | exporter.exportAsynchronously { exportGroup.leave() }
+ 98 | exportGroup.wait()
+ 99 | if exporter.status != .completed { fatalError("Export failed: \(String(describing: exporter.error))") }
+    |             `- warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+100 | print("Created \(output.path)")
+101 | 
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/render_video.swift:99:93: warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+ 97 | exporter.exportAsynchronously { exportGroup.leave() }
+ 98 | exportGroup.wait()
+ 99 | if exporter.status != .completed { fatalError("Export failed: \(String(describing: exporter.error))") }
+    |                                                                                             `- warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+100 | print("Created \(output.path)")
+101 | 
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:8:17: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 6 | let temp=root.appendingPathComponent("video/Booth编码原理与硬件实现_双声道.mp4")
+ 7 | let va=AVURLAsset(url:video), aa=AVURLAsset(url:audio)
+ 8 | guard let vt=va.tracks(withMediaType:.video).first, let at=aa.tracks(withMediaType:.audio).first else { fatalError("Input tracks missing") }
+   |                 `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 9 | let c=AVMutableComposition()
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:8:63: warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 6 | let temp=root.appendingPathComponent("video/Booth编码原理与硬件实现_双声道.mp4")
+ 7 | let va=AVURLAsset(url:video), aa=AVURLAsset(url:audio)
+ 8 | guard let vt=va.tracks(withMediaType:.video).first, let at=aa.tracks(withMediaType:.audio).first else { fatalError("Input tracks missing") }
+   |                                                               `- warning: 'tracks(withMediaType:)' was deprecated in macOS 13.0: Use loadTracks(withMediaType:) instead [#DeprecatedDeclaration]
+ 9 | let c=AVMutableComposition()
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:12:59: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+10 | guard let v=c.addMutableTrack(withMediaType:.video,preferredTrackID:kCMPersistentTrackID_Invalid),
+11 |       let a=c.addMutableTrack(withMediaType:.audio,preferredTrackID:kCMPersistentTrackID_Invalid) else { fatalError("Output tracks unavailable") }
+12 | try v.insertTimeRange(CMTimeRange(start:.zero,duration:va.duration),of:vt,at:.zero)
+   |                                                           `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+13 | try a.insertTimeRange(CMTimeRange(start:.zero,duration:aa.duration),of:at,at:.zero)
+14 | try? FileManager.default.removeItem(at:temp)
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:13:59: warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+11 |       let a=c.addMutableTrack(withMediaType:.audio,preferredTrackID:kCMPersistentTrackID_Invalid) else { fatalError("Output tracks unavailable") }
+12 | try v.insertTimeRange(CMTimeRange(start:.zero,duration:va.duration),of:vt,at:.zero)
+13 | try a.insertTimeRange(CMTimeRange(start:.zero,duration:aa.duration),of:at,at:.zero)
+   |                                                           `- warning: 'duration' was deprecated in macOS 13.0: Use load(.duration) instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:16:5: warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+   |     `- warning: 'outputURL' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:16:25: warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+14 | try? FileManager.default.removeItem(at:temp)
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+   |                         `- warning: 'outputFileType' was deprecated in macOS 27.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:17:45: warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+15 | guard let exp=AVAssetExportSession(asset:c,presetName:AVAssetExportPresetPassthrough) else { fatalError("Exporter unavailable") }
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+   |                                             `- warning: 'exportAsynchronously(completionHandler:)' was deprecated in macOS 15.0 [#DeprecatedDeclaration]
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+19 | print(temp.path)
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:18:8: warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+   |        `- warning: 'status' was deprecated in macOS 15.0: Use states(updateInterval:) instead [#DeprecatedDeclaration]
+19 | print(temp.path)
+20 | 
+
+/Users/ganxuanzhi/工作/Booth编码/scripts/remux_video_audio.swift:18:82: warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+16 | exp.outputURL=temp; exp.outputFileType = .mp4; exp.shouldOptimizeForNetworkUse=true
+17 | let group=DispatchGroup();group.enter();exp.exportAsynchronously{group.leave()};group.wait()
+18 | if exp.status != .completed { fatalError("Export failed: \(String(describing:exp.error))") }
+   |                                                                                  `- warning: 'error' was deprecated in macOS 15.0: Use export(to:as:) async throws instead [#DeprecatedDeclaration]
+19 | print(temp.path)
+20 | 
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>

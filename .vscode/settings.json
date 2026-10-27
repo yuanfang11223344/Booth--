@@ -1,0 +1,8 @@
+{
+  "digital-ide.function.lsp.linter.mode": "shutdown",
+  "FPGA_verilog.linting.linter": "verilator",
+  "FPGA_verilog.linting.verilator.includePath": [
+    "${workspaceFolder}/rtl"
+  ],
+  "FPGA_verilog.linting.verilator.arguments": "--timing -Irtl -Wno-fatal -Wno-TIMESCALEMOD -Wno-MULTITOP"
+}
